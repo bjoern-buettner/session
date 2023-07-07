@@ -1,4 +1,4 @@
-# session
+# Bjoern-Buettner/Session
 
 A memcached and file session handler taking care of IP-Locking as well. Simply call the Factory and have it handle all the checks.
 
