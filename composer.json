@@ -1,0 +1,26 @@
+{
+    "name": "bjoern-buettner/session",
+    "license": "MIT",
+    "type": "library",
+    "description": "A simple session handler for PHP 8.1 and newer, configurable via environment variables.",
+    "suggest": {
+        "ext-memcached": "For faster session handling using the Memcached backend"
+    },
+    "require": {
+        "php": "^8.1",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10.2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Me\\BjoernBuettner\\\\Session\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Me\\BjoernBuettner\\\\Session\\": "test/"
+        }
+    },
+    }
+}
