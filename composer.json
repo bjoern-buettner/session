@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Me\\BjoernBuettner\\\\Session\\": "src/"
+            "Me\\BjoernBuettner\\Session\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Me\\BjoernBuettner\\\\Session\\": "test/"
+            "Me\\BjoernBuettner\\Session\\": "test/"
         }
     }
 }
