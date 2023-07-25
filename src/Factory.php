@@ -6,12 +6,25 @@ namespace Me\BjoernBuettner\Session;
 
 class Factory
 {
+    public function __construct(
+        private readonly array $environment
+    ) {
+    }
+
+    /**
+     * @deprecated Use constructor and init() instead
+     */
     public static function start(bool $isWriteable = false): void
     {
-        $duration = (int) ($_ENV['SESSION_DURATION'] ?: 7200);
-        $hasMemcached = extension_loaded('memcached') && ($_ENV['ENABLE_MEMCACHED'] ?: 'false') === 'true';
+        (new self($_ENV))->init($isWriteable);
+    }
+    public function init(bool $isWriteable = false): void
+    {
+        $duration = (int) $this->get('SESSION_DURATION', '7200');
+        $hasMemcached = extension_loaded('memcached') && $this->get('ENABLE_MEMCACHED', 'false') === 'true';
+        $path = $this->get('SESSION_PATH', sys_get_temp_dir());
         session_set_save_handler(
-            $hasMemcached ? new Memcache($duration) : new File($duration, $_ENV['SESSION_PATH'] ?: sys_get_temp_dir()),
+            $hasMemcached ? new Memcache($duration) : new File($duration, $path),
             true
         );
         session_set_cookie_params([
@@ -25,5 +38,12 @@ class Factory
         session_start([
             'read_and_close' => !$isWriteable,
         ]);
+    }
+    private function get(string $key, string $default): string
+    {
+        if (!isset($this->environment[$key])) {
+            return $default;
+        }
+        return $this->environment[$key] ?: $default;
     }
 }
